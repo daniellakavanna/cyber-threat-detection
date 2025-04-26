@@ -1,0 +1,4 @@
+boto3
+torch==1.13.1
+pydantic
+numpy<2

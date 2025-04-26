@@ -1,0 +1,29 @@
+      
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  ThreatDetectionLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: threat-detection-function
+      Runtime: python3.9
+      Architectures:
+        - arm64  
+      Handler: app.threat_detection_prediction_handler
+      CodeSigningConfigArn: !Ref DetectionCodeSigningConfig
+      CodeUri: src/ 
+      PackageType: Zip
+      MemorySize: 512
+      Timeout: 30
+
+DetectionCodeSigningConfig:
+    Type: AWS::Lambda::CodeSigningConfig
+    Properties:
+      Description: "Code Signing for Thread Detection Lambda Function"
+      AllowedPublishers:
+        SigningProfileVersionArns:
+          - !Ref SigningProfileArn
+      CodeSigningPolicies:
+        UntrustedArtifactOnDeployment: "Enforce"
+
