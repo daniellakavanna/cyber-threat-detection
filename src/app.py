@@ -12,10 +12,9 @@ class DetectionLabel(str, enum.Enum):
     Malicious = "Malicious"
     Benign = "Benign"
 
+local_model_path = "models/model.pth" 
 
 def threat_detection_prediction_handler(event, context):
-
-    local_model_path = "models/model.pth" 
 
     # Load the model architecture
     model = ThreatDetectionModel()
